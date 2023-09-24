@@ -56,6 +56,7 @@ impl Command {
                 return Err(IoError::last_os_error().into());
             }
 
+            #[allow(deprecated)]
             let pid = libc::vfork();
             match pid {
                 -1 => Err(IoError::last_os_error().into()),
