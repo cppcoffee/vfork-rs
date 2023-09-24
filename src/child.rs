@@ -6,6 +6,7 @@ use libc::pid_t;
 
 use crate::error::Result;
 
+#[derive(Debug)]
 pub struct ExitCode(i32);
 
 pub struct Child {
