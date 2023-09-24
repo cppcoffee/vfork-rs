@@ -9,6 +9,13 @@ use crate::error::Result;
 #[derive(Debug)]
 pub struct ExitCode(i32);
 
+impl ExitCode {
+    /// Get the exit code of the child process
+    pub fn code(&self) -> i32 {
+        self.0
+    }
+}
+
 pub struct Child {
     pid: pid_t,
     output: File,
