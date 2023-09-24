@@ -39,14 +39,16 @@ impl Command {
     pub fn spawn(&self) -> Result<Child> {
         let mut fds = [0; 2];
 
-        let mut argv = Vec::with_capacity(self.argv.len() + 1);
-        argv.push(self.program.clone());
-        argv.extend(self.argv.iter().cloned());
+        let mut items = Vec::with_capacity(self.argv.len() + 1);
+        items.push(self.program.clone());
+        items.extend(self.argv.iter().cloned());
 
-        let mut argv = argv
+        let mut argv = items
             .iter()
             .map(|arg| arg.as_bytes().as_ptr() as *const libc::c_char)
             .collect::<Vec<_>>();
+
+        // null pointer at last
         argv.push(std::ptr::null());
 
         unsafe {
@@ -70,7 +72,6 @@ impl Command {
                         argv.as_ptr() as *const *const libc::c_char,
                     );
 
-                    println!("execv failed: {}", IoError::last_os_error());
                     libc::_exit(1);
                 }
                 _ => {
