@@ -4,7 +4,7 @@ use std::io::Error as IoError;
 use std::os::fd::FromRawFd;
 use std::os::unix::ffi::OsStrExt;
 
-use crate::child::TinyChild;
+use crate::child::Child;
 use crate::error::Result;
 
 pub struct Command {
@@ -36,7 +36,7 @@ impl Command {
     }
 
     /// Executes the command as a child process
-    pub fn spawn(&self) -> Result<TinyChild> {
+    pub fn spawn(&self) -> Result<Child> {
         let mut fds = [0; 2];
 
         let mut argv = Vec::with_capacity(self.argv.len() + 1);
@@ -78,7 +78,7 @@ impl Command {
 
                     let file = File::from_raw_fd(fds[0]);
 
-                    Ok(TinyChild::new(pid, file))
+                    Ok(Child::new(pid, file))
                 }
             }
         }

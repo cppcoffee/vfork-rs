@@ -8,14 +8,14 @@ use crate::error::Result;
 
 pub struct ExitCode(i32);
 
-pub struct TinyChild {
+pub struct Child {
     pid: pid_t,
     output: File,
 }
 
-impl TinyChild {
+impl Child {
     pub(crate) fn new(pid: pid_t, output: File) -> Self {
-        TinyChild { pid, output }
+        Child { pid, output }
     }
 
     /// Try to wait the child process exit. If the child process is still running, return `None`.
