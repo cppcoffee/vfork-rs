@@ -85,3 +85,25 @@ impl Command {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_echo_command() {
+        let mut cmd = Command::new("/bin/echo")
+            .arg("Hello, world!")
+            .spawn()
+            .expect("failed to execute process");
+
+        let status_code = cmd.wait().expect("failed to wait process");
+        assert_eq!(status_code.code(), 0);
+
+        let output = cmd.output().expect("failed to get output");
+        assert_eq!(
+            String::from_utf8_lossy(&output),
+            "Hello, world!\n".to_string()
+        );
+    }
+}
