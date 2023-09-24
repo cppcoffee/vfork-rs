@@ -1,11 +1,11 @@
 use std::ffi::{OsStr, OsString};
 use std::fs::File;
 use std::io::Error as IoError;
+use std::io::Result;
 use std::os::fd::FromRawFd;
 use std::os::unix::ffi::OsStrExt;
 
 use crate::child::Child;
-use crate::error::Result;
 
 pub struct Command {
     program: OsString,

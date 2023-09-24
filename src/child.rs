@@ -1,10 +1,8 @@
 use std::fs::File;
 use std::io::Error as IoError;
-use std::io::Read;
+use std::io::{Read, Result};
 
 use libc::pid_t;
-
-use crate::error::Result;
 
 #[derive(Debug)]
 pub struct ExitCode(i32);

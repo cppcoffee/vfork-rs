@@ -12,4 +12,3 @@ repository = "https://github.com/cppcoffee/vfork-rs"
 
 [dependencies]
 libc = "0.2.148"
-thiserror = "1.0.48"
